@@ -57,8 +57,6 @@ class LoginScreen extends StatelessWidget {
                   onPressed: (){},
                   child: normalText(text: forgotPassword, color: purpleColor)), ),
                
-
-
                 30.heightBox,
                 SizedBox(
                  width: context.screenWidth - 100,
@@ -72,7 +70,7 @@ class LoginScreen extends StatelessWidget {
              ),
 
               ],
-            ).box.white.rounded.outerShadow.padding(const EdgeInsets.all(8)).make(),
+            ).box.white.rounded.outerShadowMd.padding(const EdgeInsets.all(8)).make(),
 
             10.heightBox,
             Center(child:  normalText(text: anyProblem, color: lightGrey)),

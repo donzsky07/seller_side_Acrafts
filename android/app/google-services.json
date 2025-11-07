@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "665099211508",
+    "project_id": "ecrafts-c2137",
+    "storage_bucket": "ecrafts-c2137.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665099211508:android:4a8b4cad74d761024004a1",
+        "android_client_info": {
+          "package_name": "com.example.projects"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoQwcw8YESywzRK6m-n2PeSBb5eZzAnPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665099211508:android:a38290428f137e204004a1",
+        "android_client_info": {
+          "package_name": "com.example.seller_side"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoQwcw8YESywzRK6m-n2PeSBb5eZzAnPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

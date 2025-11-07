@@ -36,10 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.8
   get: ^4.6.6
   velocity_x: ^4.3.1
-  cloud_firestore: ^5.6.9
-  firebase_auth: ^5.6.0
-  firebase_storage: ^12.4.7
-  firebase_core: ^3.15.2
+  cloud_firestore: ^6.1.0
+  firebase_auth: ^6.1.2
+  firebase_storage: ^13.0.4
+  firebase_core: ^4.2.1
   image_picker: ^1.2.0
   
 
@@ -83,7 +83,19 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+     - family: sans_regular
+       fonts:
+        - asset: assets/fonts/sans_regular.ttf
+    
+     - family: sans_semibold
+       fonts:
+        - asset: assets/fonts/sans_semibold.ttf
+
+     - family: sans_bold
+       fonts:
+        - asset: assets/fonts/sans_bold.ttf
+
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

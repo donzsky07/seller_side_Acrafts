@@ -8,7 +8,32 @@ const appname = 'ACraft Seller App',
   emailHint = 'eg. vendor@emart.com',
   passwordHint = '* * * * * * * ',
   dashboard = 'Dashboard',
+  rating = 'Rating',
+  unpaid = 'Unpaid',
+  totalSales = 'Total Sales',
+  popular = 'Popular Products',
   orders = 'Orders',
+  loginTo = 'Login to your account',
   product = 'Products',
   settings = 'Settings',
+  featured = 'Featured',
+  edit = 'Edit',
+  remove = 'remove',
+  logout = 'Logout',
+  messages = 'Messages',
+  shopSettings = 'Settings',
+
   credit = '@santurdioDevs';
+
+
+  //shop setting String
+  const nameHint = 'eg. Vendor Name',
+  shopDescHint = 'Enter your shop description',
+  shopWebsiteHint = 'eg. vendor.emart.com',
+  shopMobileHint = 'eg. +92123456789',
+  shopAddressHint = 'eg. Near Railway Bazaar',
+  description = 'Description',
+  mobile = 'Shop Mobile',
+  website = 'Shop Website',
+  name = 'Shop Name',
+  address = 'Shop Address';

@@ -1,12 +1,49 @@
 import 'package:seller_side/consts/const.dart';
+import 'package:seller_side/consts/images.dart';
+import 'package:seller_side/views/widgets/text_style.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: golden
+    return Scaffold(
+     
+     backgroundColor: purpleColor,
+     appBar: AppBar(
+      title: boldText(text: settings, size: 18.0),
+      actions: [
+        IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+        TextButton(onPressed: () {}, child: normalText(text: logout),)
+      ],
+     ),
+     body: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          ListTile(
+            leading: Image.asset(imgproduct).box.roundedFull.clip(Clip.antiAlias).make(),
+            title: boldText(text: "Vendor Name"),
+            subtitle: normalText(text: "vendoremail@emart.com"),
+          ),
+          const Divider(),
+          10.heightBox,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: List.generate(profileButtonsIcons.length, (index) => ListTile(
+                leading: Icon(profileButtonsIcons[index], color: white), 
+                title: normalText(text: profileButtonsTitles[index],),
+              ),),
+              ),
+             ),
+
+        ],
+        ),
+      ),
+
+
+
     );
 
 

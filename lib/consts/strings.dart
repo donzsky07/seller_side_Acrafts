@@ -15,14 +15,18 @@ const appname = 'ACraft Seller App',
   orders = 'Orders',
   loginTo = 'Login to your account',
   product = 'Products',
-  settings = 'Settings',
+  settings = 'Shop Settings',
   featured = 'Featured',
   edit = 'Edit',
-  remove = 'remove',
+  save = 'Save',
+  remove = 'Remove',
   logout = 'Logout',
   messages = 'Messages',
   shopSettings = 'Settings',
-
+  editProfile = 'Edit Profile',
+  changeImage = 'Change Image',
+  name = 'Username',
+  confirmPass = 'Confirm Password',
   credit = '@santurdioDevs';
 
 
@@ -35,5 +39,5 @@ const appname = 'ACraft Seller App',
   description = 'Description',
   mobile = 'Shop Mobile',
   website = 'Shop Website',
-  name = 'Shop Name',
+  shopName = 'Shop Name',
   address = 'Shop Address';

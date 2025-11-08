@@ -1,5 +1,7 @@
+import 'package:get/get.dart';
 import 'package:seller_side/consts/const.dart';
 import 'package:seller_side/consts/images.dart';
+import 'package:seller_side/views/profile_screen/edit_profilescreen.dart';
 import 'package:seller_side/views/widgets/text_style.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -11,9 +13,13 @@ class ProfileScreen extends StatelessWidget {
      
      backgroundColor: purpleColor,
      appBar: AppBar(
+      automaticallyImplyLeading: false,
       title: boldText(text: settings, size: 18.0),
       actions: [
-        IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+        IconButton(onPressed: () {
+          Get.to(() => const EditProfileScreen());
+        }, 
+        icon: const Icon(Icons.edit)),
         TextButton(onPressed: () {}, child: normalText(text: logout),)
       ],
      ),

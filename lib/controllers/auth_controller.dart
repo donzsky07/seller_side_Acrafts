@@ -40,7 +40,7 @@ class AuthController extends GetxController {
   }) async {
     final userId = auth.currentUser?.uid;
     if (userId != null) {
-      await firestore.collection(usersCollection).doc(userId).set({
+      await firestore.collection(vendorsCollection).doc(userId).set({
         'name': name,
         'password': password,
         'email': email,

@@ -5,7 +5,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 User? currentUser = auth.currentUser;
 
-const usersCollection = "vendors";
+const vendorsCollection = "vendors";
 const productsCollection = "products";
 const chatsCollection = "chats";
 const messageCollection = "messages";

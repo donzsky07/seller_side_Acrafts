@@ -1,7 +1,9 @@
 import 'package:seller_side/consts/const.dart';
-import 'package:seller_side/consts/images.dart';
+import 'package:seller_side/views/product_screen/add_product.dart';
+import 'package:seller_side/views/product_screen/product_details.dart';
 import 'package:seller_side/views/widgets/appbar_widget.dart';
 import 'package:seller_side/views/widgets/text_style.dart';
+import 'package:get/get.dart';
 
 
 class ProductsScreen extends StatelessWidget {
@@ -13,7 +15,9 @@ class ProductsScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
       backgroundColor: purpleColor,
       shape: const CircleBorder(),
-      onPressed: (){}, 
+      onPressed: (){
+        Get.to(() => const AddProduct());
+      }, 
       child: const Icon(Icons.add, color:white),
       ),
       appBar: appbarWidget(product),
@@ -26,7 +30,9 @@ class ProductsScreen extends StatelessWidget {
             20,
             (index) => Card(
               child: ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => ProductDetails());
+                  },
                 leading: Image.asset(imgproduct, width: 100, height: 100, fit: BoxFit.cover),
                 title: boldText(text: "Product title", color: fontGrey ),
                 subtitle: normalText(text: "\$40.0", color: darkGrey),

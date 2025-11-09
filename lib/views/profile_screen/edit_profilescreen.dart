@@ -1,5 +1,5 @@
+import 'package:get/get.dart';
 import 'package:seller_side/consts/const.dart';
-import 'package:seller_side/consts/images.dart';
 import 'package:seller_side/views/widgets/custom_textfield.dart';
 import 'package:seller_side/views/widgets/text_style.dart';
 
@@ -12,10 +12,15 @@ class EditProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: purpleColor,
       appBar: AppBar(
+         leading: IconButton(onPressed: (){
+          Get.back();
+        },
+        icon: Icon(Icons.arrow_back, color: white),
+      ),
       title: boldText(text: editProfile, size: 18.0),
       actions: [
         
-        TextButton(onPressed: () {}, child: normalText(text: save))
+        TextButton(onPressed: () {}, child: normalText(text: save, color: white, size: 18.0))
       ],
      ),
      body: Padding(

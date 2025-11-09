@@ -1,4 +1,4 @@
-import 'package:seller_side/consts/images.dart';
+
 import 'package:seller_side/consts/const.dart';
 
 const profileIconList = [icShopSetting, icChat, icAccount];

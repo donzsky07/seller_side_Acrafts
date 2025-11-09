@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:seller_side/consts/const.dart';
-import 'package:seller_side/consts/images.dart';
 import 'package:seller_side/controllers/home_controller.dart';
 import 'package:seller_side/views/home_screen/home_screen.dart';
 import 'package:seller_side/views/order_screen/order_sreen.dart';
@@ -25,8 +24,6 @@ class Home extends StatelessWidget {
      BottomNavigationBarItem(icon: Image.asset(icOrders, width: 24, color: darkGrey), label: orders ),
      BottomNavigationBarItem(icon: Image.asset(icGeneralSettings, width: 24, color: darkGrey), label: settings),
   ];
-
-
     return Scaffold(
       bottomNavigationBar: Obx(
         () =>  BottomNavigationBar(

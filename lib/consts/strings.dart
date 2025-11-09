@@ -27,6 +27,7 @@ const appname = 'ACraft Seller App',
   changeImage = 'Change Image',
   name = 'Username',
   confirmPass = 'Confirm Password',
+  chats = 'Chats',
   credit = '@santurdioDevs';
 
 

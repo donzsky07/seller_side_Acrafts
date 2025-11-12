@@ -31,7 +31,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
    
     return Obx(
       () => Scaffold(
-        resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false,
       backgroundColor: purpleColor,
       appBar: AppBar(
          leading: IconButton(onPressed: (){
@@ -42,7 +42,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       title: boldText(text: editProfile, size: 18.0),
       actions: [
         controller.isloading.value
-        ? loadingIndicator()
+        ? loadingIndicator(circleColor: white)
         : TextButton(onPressed: () async{
           controller.isloading(true);
             //if image is not selected
@@ -50,7 +50,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             await controller.uploadProfileImage();
 
           }else {
-            controller.profileImageLink = controller.snapshotData['imageUrl'];
+            controller.profileImageLink = controller.snapshotData['imgUrl'];
           }
 
           //if old password matches database
@@ -86,13 +86,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: Column (
         children: [
               //if data image url and controller path is empty
-              controller.snapshotData['imageUrl'] == '' && controller.profileImgPath.isEmpty
+              controller.snapshotData['imgUrl'] == '' && controller.profileImgPath.isEmpty
               ? Image.asset(imgproduct, width: 100, fit: BoxFit.cover).box.roundedFull.clip(Clip.antiAlias).make()
 
               //if data is not empty but controller path is empty
-              : controller.snapshotData['imageUrl'] != '' && controller.profileImgPath.isEmpty
+              : controller.snapshotData['imgUrl'] != '' && controller.profileImgPath.isEmpty
               ? Image.network (
-                controller.snapshotData['imageUrl'],
+                controller.snapshotData['imgUrl'],
                 width: 100,
                 fit: BoxFit.cover,
                 

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:seller_side/consts/const.dart';
+import 'package:seller_side/controllers/products_controller.dart';
 import 'package:seller_side/services/store_services.dart';
 import 'package:seller_side/views/product_screen/add_product.dart';
 import 'package:seller_side/views/product_screen/product_details.dart';
@@ -14,11 +15,16 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var controller = Get.put(ProductsController());
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
       backgroundColor: purpleColor,
       shape: const CircleBorder(),
-      onPressed: (){
+      onPressed: ()async{
+        await controller.getCategories();
+        controller.populateCategoryList();
         Get.to(() => const AddProduct());
       }, 
       child: const Icon(Icons.add, color:white),
@@ -43,25 +49,58 @@ class ProductsScreen extends StatelessWidget {
             (index) => Card(
               child: ListTile(
                   onTap: () {
-                    Get.to(() =>  const ProductDetails());
+                    Get.to(() =>   ProductDetails(data: data[index]));
                   },
-                leading: Image.asset(imgproduct, width: 100, height: 100, fit: BoxFit.cover),
+                leading: Image.network(data[index]['p_imgs'][0], width: 100, height: 100, fit: BoxFit.cover),
                 title: boldText(text: "${data[index]['p_name']}", color: fontGrey ),
-                subtitle: normalText(text: "\$40.0", color: darkGrey),
+                subtitle: Row(
+                  children: [
+                    normalText(text: "₱ ${data[index]['p_price']}", color: darkGrey),
+                    10.widthBox,
+                    boldText(text: data[index]['is_featured'] == true ? "Featured" : "", color: green),
+                  ],
+                ),
                 trailing: VxPopupMenu(
                   arrowSize: 0.0,
                   menuBuilder: () => Column(
                     children: List.generate(
                       popupMenuTitles.length, 
-                      (index) => Padding(
+                      (i) => Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Row(
                       children: [
-                        Icon(popupMenuIcons[index]),
+                        Icon(
+                          popupMenuIcons[i],
+                          color: data[index]['featured_id'] == currentUser!.uid && i == 0 
+                          ? green : darkGrey ,
+                          ),
                         10.widthBox,
-                        normalText(text: popupMenuTitles[index], color: darkGrey )
+                        normalText(text: data[index]['featured_id'] == currentUser!.uid && i == 0 
+                        ? 'Remove_feature' 
+                        : popupMenuTitles[i], color: darkGrey )
                       ],    
-                  ).onTap (() {}),
+                  ).onTap (() {
+                   switch (i) {
+                    case 0 :
+                       if(data[index]['is_featured'] == true) {
+                      controller.removeFeatured(data[index].id);
+                      VxToast.show(context, msg: "Remove");
+                    }else{
+                      controller.addFeatured(data[index].id);
+                       VxToast.show(context, msg: "Added");
+                    }
+
+                    break;
+                  case 1:
+                    break;
+                  case 2:
+                    controller.removeProduct(data[index].id);
+                    VxToast.show(context, msg: "Product Remove");
+                    break;
+
+                  default:
+                   }
+                  }),
                   ),
                   ),
                 ).box.white.rounded.width(200).make(), 

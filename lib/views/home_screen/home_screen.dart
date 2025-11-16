@@ -1,7 +1,13 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:seller_side/consts/const.dart';
+import 'package:seller_side/services/store_services.dart';
+import 'package:seller_side/views/product_screen/product_details.dart';
 import 'package:seller_side/views/widgets/appbar_widget.dart';
 import 'package:seller_side/views/widgets/dashboard_button.dart';
+import 'package:seller_side/views/widgets/loading_indicator.dart';
 import 'package:seller_side/views/widgets/text_style.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,9 +17,19 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbarWidget(dashboard),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
+      body: StreamBuilder(
+        stream: StoreServices.getProducts(currentUser!.uid),
+
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if(!snapshot.hasData){
+            return loadingIndicator();
+          
+          }else {
+            var data = snapshot.data!.docs;
+
+            data = data.sortedBy((a,b) => a['p_wishlist'].length.compareTo(b['p_wishlist'].length));
+
+            return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,7 +38,7 @@ class HomeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  dashboardButton(context, title: product, count: "60", icon: icProduct),
+                  dashboardButton(context, title: product, count: "${data.length}", icon: icProduct),
                   dashboardButton(context, title: orders, count: "15", icon: icOrders),
                 ],
               ),
@@ -38,29 +54,40 @@ class HomeScreen extends StatelessWidget {
               const Divider(),
               10.heightBox,
               boldText(text: popular, color: fontGrey, size: 16.0),
+              
               20.heightBox,
-
-              // Instead of ListView, use a Column since SingleChildScrollView already scrolls
-              Column(
-                children: List.generate(
-                  3,
-                  (index) => ListTile(
-                    onTap: () {},
-                    leading: Image.asset(
-                      imgproduct,
+              Expanded(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  children :  List.generate(
+                  data.length,
+                  (index) => data[index]['p_wishlist'].length == 0 
+                  ? const SizedBox()
+                  : ListTile(
+                    onTap: () {
+                    Get.to(() => ProductDetails(data: data[index]));
+                    },
+                    leading: Image.network(
+                      data[index]['p_imgs'][0],
                       width: 100,
                       height: 100,
                       fit: BoxFit.cover,
                     ),
-                    title: boldText(text: "Product title", color: fontGrey),
-                    subtitle: normalText(text: "\$40.0", color: darkGrey),
+                    title: boldText(text: "${data[index]['p_name']}", color: fontGrey, size: 18.0),
+                    subtitle: normalText(text: "₱ ${data[index]['p_price']}", color: darkGrey, size: 16.0),
                   ),
                 ),
-              ),
+                  ),
+                ),
+            
             ],
           ),
-        ),
-      ),
-    );
+        );
+          }
+
+        },)
+      );
+   
   }
 }

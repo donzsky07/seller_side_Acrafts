@@ -1,7 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:seller_side/consts/const.dart';
 import 'package:seller_side/services/store_services.dart';
 import 'package:seller_side/views/product_screen/product_details.dart';

@@ -1,3 +1,4 @@
+
 import 'package:seller_side/consts/const.dart';
 
 class StoreServices {
@@ -6,9 +7,18 @@ class StoreServices {
     return firestore.collection(vendorsCollection).where('id', isEqualTo: uid).get();
   }
 
-  static getMessages(uid) {
+ static getMessages(uid) {
     return firestore.collection(chatsCollection).where('toId', isEqualTo: uid).snapshots();
   }
+/*static Stream getMessages(String currentId, String friendId) {
+  return firestore
+      .collection(chatsCollection)
+      .where('users', arrayContainsAny: [currentId, friendId])
+      .snapshots();
+}*/
+
+   
+
 
   static getOrders(uid) {
     return firestore.collection(ordersCollection).where('vendors', arrayContains: uid).snapshots();

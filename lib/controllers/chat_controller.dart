@@ -3,23 +3,23 @@ import 'package:get/get.dart';
 import 'package:seller_side/consts/const.dart';
 import 'package:seller_side/controllers/home_controller.dart';
 
+
 class ChatController extends GetxController {
+
   @override
   void onInit() {
     getChatId();
     super.onInit();
   }
 
-  // Firestore reference
-  var chats = FirebaseFirestore.instance.collection("chats");
+  var chats = firestore.collection(chatsCollection);
 
-  // Arguments coming from chat list or product screen
-  var friendName = Get.arguments[0];   // user name
-  var friendId = Get.arguments[1];     // user id
+  //var friendName = Get.arguments[0];
+  var friendName =  Get.arguments[0] ;
+  var friendId = Get.arguments[1];
 
-  // Seller info
-  var sellerName = Get.find<HomeController>().username;
-  var sellerId = currentUser!.uid;
+  var senderName = Get.find<HomeController>().username;
+  var currentId = currentUser!.uid;
 
   var msgController = TextEditingController();
 
@@ -28,57 +28,58 @@ class ChatController extends GetxController {
   var isloading = false.obs;
 
   getChatId() async {
+    
     isloading(true);
 
-    // Step 1: find any chat where SELLER is a member
-    var query = await chats
-        .where("users", arrayContains: sellerId)
-        .get();
+    await chats.where('users', isEqualTo: {
+      friendId: null,
+      currentId: null
 
-    // Step 2: check if any chat contains THIS user (friend)
-    if (query.docs.isNotEmpty) {
-      for (var doc in query.docs) {
-        List users = doc["users"];
-        if (users.contains(friendId)) {
-          chatDocId = doc.id;
-          isloading(false);
-          return;
-        }
-      }
     }
+    ).limit(1).get().then((QuerySnapshot snapshot){
+      if(snapshot.docs.isNotEmpty) {
+        chatDocId = snapshot.docs.single.id;
+      }else {
+        chats.add({
+          "created_on": null,
+          "last_msg": '',
+          "users": {friendId: null, currentId: null},
+          "toId": '',
+          "fromId": '',
+          "friend_name": friendName,
+          "sender_name": senderName
+        
 
-    // Step 3: No chat found → Create a new one
-    var newChat = await chats.add({
-      "created_on": FieldValue.serverTimestamp(),
-      "last_msg": "",
-      "users": [sellerId, friendId],   // VERY IMPORTANT!!!
-      "fromId": "",
-      "toId": "",
-      "sender_name": sellerName,
-      "friend_name": friendName,
+        }).then ((value) {
+          {
+            chatDocId = value.id;
+          }
+        });
+      }
     });
-
-    chatDocId = newChat.id;
-
     isloading(false);
   }
 
   sendMsg(String msg) async {
-    if (msg.trim().isNotEmpty) {
-      // update parent chat document
+    if(msg.trim().isNotEmpty) {
       chats.doc(chatDocId).update({
-        "created_on": FieldValue.serverTimestamp(),
-        "last_msg": msg,
-        "fromId": sellerId,
-        "toId": friendId,
+        'created_on': FieldValue.serverTimestamp(),
+        'last_msg': msg,
+        'toId': friendId,
+        'fromId': currentId,
+
       });
 
-      // add message to subcollection
-      chats.doc(chatDocId).collection("messages").add({
-        "created_on": FieldValue.serverTimestamp(),
-        "msg": msg,
-        "uid": sellerId,
+      chats.doc(chatDocId).collection(messageCollection).doc().set({
+        'created_on': FieldValue.serverTimestamp(),
+        'msg': msg,
+        'uid': currentId,
+
       });
+
     }
   }
+
+
+
 }

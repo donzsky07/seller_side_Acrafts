@@ -120,6 +120,7 @@ class ChatScreen extends StatelessWidget {
 }
 
 
+
 /*import 'package:get/get.dart';
 import 'package:seller_side/consts/const.dart';
 import 'package:seller_side/views/message_screen/components/chat_bubble.dart';

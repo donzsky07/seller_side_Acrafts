@@ -10,14 +10,15 @@ class StoreServices {
  static getMessages(uid) {
     return firestore.collection(chatsCollection).where('toId', isEqualTo: uid).snapshots();
   }
-/*static Stream getMessages(String currentId, String friendId) {
+
+ /* static getMessages(String uid) {
   return firestore
       .collection(chatsCollection)
-      .where('users', arrayContainsAny: [currentId, friendId])
+      .where('users', arrayContains: uid) // all chats that involve this user
+      .orderBy('created_on', descending: true) // show latest chats first
       .snapshots();
 }*/
 
-   
 
 
   static getOrders(uid) {
